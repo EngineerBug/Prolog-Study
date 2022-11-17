@@ -45,5 +45,28 @@ reverseList( [H|T], L )
 	:- reverseList(T, L1),
     append(L1, [H], L).
 
+%Fact: for any element inserted into an empty list, the result is a singlton list.
+%Rule: for any integer N and list with head H and tail T:
+%		if N > H insert N into T then append back onto H.
+%Rule: for any integer N and list with head H and tail T:
+%		if N =< H, then prepend N to the list.
+insert(N, [], [N]).
+insert(N, [H|T], L)
+	:- N > H,
+    insert(N, T, L1),
+    L = [H|L1].
+insert(N, [H|T], L)
+	:- N =< H,
+    L = [N,H|T].
+
+%Fact: for any empty list, the sorted list is an empty list.
+%Rule: for any list with head H and tail T:
+%		the sorted list is H inserted into the sorted T.
+%		where the sorted T is L1.
+insertSort([], []).
+insertSort([H|T], L)
+	:- insertSort(T, L1),
+    insert(H, L1, L).
+
 main
 	:- reverseList( [a,b,c,d,e,f], X ), write(X).
