@@ -6,23 +6,30 @@
 
 %End Question 3.1
 
-%Begin Question 4.2 -- INCORRECT --
-%possible( X, Y, Z )
-%  :- 
+%Begin Question 3.2 -- INCORRECT --
 
-appendlist([], X, X).
-appendlist([T|H], X, [T|L]) 
-    :- appendlist(H, X, L).
+%Fact: any list appended to an empty list is the list.
+%Rule: any two lists appended together are:
+%		the first element of the first list,
+%		appended to both appended lists.
+appendList([], L, L).
+appendList([H|T], L1, [H|L]) 
+    :- appendList(T, L1, L).
 
-possible([], []).
-possible([X], [X]) :-!.
-possible([T|H], X) 
-    :- permutation(H, H1), 
-    appendlist(L1, L2, H1), 
-    appendlist(L1, [T], X1), 
-    appendlist(X1, L2, X).
+%Fact: any list has head H and tail T.
+headTail([H|T], H, T).
 
-%End Question 4.2 -- INCORRECT --
+possiblePrint([], []).
+possiblePrint([X], [X])
+	:-!.
+possiblePrint(GRID, X) 
+    :- headTail(GRID, H, T),
+    possiblePrint(T, T1),
+    appendList(L1, L2, T1), 
+    appendList(L1, [H], X1), 
+    appendList(X1, L2, X).
+
+%End Question 3.2 -- INCORRECT --
 
 %Begin Question 3.2
 %possible( GRID )

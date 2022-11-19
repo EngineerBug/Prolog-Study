@@ -2,16 +2,16 @@
 %Fact: all numbers are divisible by 1.
 %Rule: for any numbers N and N-1:
 %		N is prime iff is is not divisible by all numbers below it, except 1.
-prime2( N, N ).
-prime2( N, D )
+primeCheck( N, N ).
+primeCheck( N, D )
     :- mod(N, D) =\= 0,
     D1 is D + 1,
-    prime2(N, D1).
+    primeCheck(N, D1).
 
 %Rule: for any integer N:
-%   if the only factors of N are 1 and N, it is prime.
+%   if there are no factors (F) of N where 1 < F < N, it is prime.
 prime( N )
-  :- prime2(N, 2).
+  :- primeCheck(N, 2).
 
 %End Question 4.1
 
