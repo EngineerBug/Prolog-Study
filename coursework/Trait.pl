@@ -16,6 +16,19 @@ prime( N )
 %End Question 4.1
 
 %Begin Question 4.2
+
+remover( _, [], []).
+remover( R, [R|T], T2) 
+  :- remover( R, T, T2).
+remover( R, [H|T], [H|T2]) 
+  :- H \= R, 
+  remover( R, T, T2).
+
+containOneToNine(_, []).
+containOneToNine([H|T], DIGITS)
+  :- remover(H, DIGITS, D1),
+  containOneToNine(T, D1).
+
 %possible( X, Y, Z )
 %  :-
 
