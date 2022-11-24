@@ -1,5 +1,5 @@
 %Begin Question 4.1
-%Fact: all numbers are divisible by 1.
+%Fact: all numbers are divisible by themselves.
 %Rule: for any numbers N and N-1:
 %		N is prime iff is is not divisible by all numbers below it, except 1.
 primeCheck( N, N ).
@@ -38,33 +38,60 @@ containOneToNine([H|T], DIGITS)
   :-remover(H, DIGITS, D1),
     containOneToNine(T, D1).
 
-possible( X, Y, Z )
-	:- \+ prime(X),
-      \+ prime(Y),
-      \+ prime(Z),
-      X < 360,
-      Y < 360,
-      Z < 360,
-      numToList(X, XS),
-      numToList(Y, YS),
-      numToList(Z, ZS),
-      append(XS, YS, L1),
-      append(L1, ZS, L2),
+%generate all triples that are valid bearings
+possible( A, B, C )
+	:- \+ prime(A),
+      \+ prime(B),
+      \+ prime(C),
+      %the following five lines turn X, Y and Z into a list of digits
+      numToList(A, AS),
+      numToList(B, BS),
+      numToList(C, CS),
+      append(AS, BS, L1),
+      append(L1, CS, L2),
+      %check that the bearings contain 1..9
       containOneToNine(L2, [1,2,3,4,5,6,7,8,9]).
 
 %End Question 4.2
 
 %Begin Question 4.3
 
+isSet([]).
+isSet([H|T])
+	:- \+ member(H, T),
+    isSet(T).
+
 %all bearings should be different quadrents
 %integer divide (//) all bearings by 90 and check they are all different
-%acceptable( X, Y, Z ) 
-%  :-
+%check if ONE set of bearings is acceptable
+acceptable( A, B, C ) 
+  :-A < 360,
+    B < 360,
+    C < 360,
+    A1 is A // 90,
+    B1 is B // 90,
+    C1 is C // 90,
+    isSet([A1, B1, C1]).
 
-%trait( X, Y, Z )
-%  :-
+%given the question, I should be able 
+trait( A, B, C )
+  :- possible(A, B, C),
+    acceptable(A, B, C).
 
 %End Question 4.3
 
 %any main predicates for testing goes here
-
+main
+	%:- prime(19). %true
+	%:- prime(4). %false
+	%:- prime(11110). % false
+	%:- numToList(1234, X), write(X). % [1,2,3,4] true
+	%:- containOneToNine([1,2,3,4], [4,3,2,1]). %true
+	%:- containOneToNine([1,2,4], [4,3,2,1]). %false
+	%:- containOneToNine([1,2,3,4,5], [4,3,2,1]). %true
+	:- possible(123,456,789). %true x1000
+	%:- isSet([1,2,3,4]). %true
+	%:- isSet([1,1,1,2]). %false
+	%:- acceptable(178, 249, 356). %true
+	%:- trait(178, 249, 356).
+	%:- possible(A, B, C), write(A), write(B), write(C).
