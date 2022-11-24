@@ -35,6 +35,9 @@ containOneToNine([H|T], DIGITS)
 %End Question 4.2
 
 %Begin Question 4.3
+
+%all bearings should be different quadrents
+%integer divide (//) all bearings by 90 and check they are all different
 %acceptable( X, Y, Z ) 
 %  :-
 
