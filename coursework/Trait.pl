@@ -66,8 +66,8 @@ acceptable( X, Y, Z )
 
 %given the question, I should be able 
 trait( X, Y, Z ) 
-  :- possible( X, Y, Z ) ,
-  acceptable( X, Y, Z ) .
+  :- possible( X, Y, Z ),
+  acceptable( X, Y, Z ).
 
 %End Question 4.3
 

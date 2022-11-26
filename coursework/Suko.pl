@@ -25,8 +25,8 @@ possiblePrint(GRID, X)
     append(L1, [H], X1), 
     append(X1, L2, X).
 
-possible(GRID)
-	:- possiblePrint(GRID, _).
+possible( GRID )
+	:- possiblePrint([1,2,3,4,5,6,7,8,9], GRID).
 
 %End Question 3.2
 
@@ -41,7 +41,7 @@ sumList([H|T], N)
 % U = sum(US)
 % W = sum(WS)
 %
-% sum(TS) = sum(4 * center + 2 * each edge center + 1 * each corner)
+% 
 %
 acceptable( T0, T1, T2, T3, US, U, VS, V, WS, W, GRID)
  :- sumList(US, U),
@@ -60,8 +60,9 @@ acceptable( T0, T1, T2, T3, US, U, VS, V, WS, W, GRID)
     indices([4,5,7,8], GRID, T3S),
     sumList(T3S, T3).
 
-%suko( T0, T1, T2, T3, US, U, VS, V, WS, W, GRID)
-%  :-
+suko( T0, T1, T2, T3, US, U, VS, V, WS, W, GRID )
+  :- possible(GRID),
+    acceptable( T0, T1, T2, T3, US, U, VS, V, WS, W, GRID ).
 
 %End Question 3.3
 
