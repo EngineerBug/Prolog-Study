@@ -31,7 +31,7 @@ listToNum([H|T], N)
     listToNum(T, N1),
     N is N1 + (H * (10 ^ L1)).
 
-possible(X,Y,Z)
+possible( X, Y, Z )
 	:-possiblePrint([1,6,8,2,7,9,3,4,5],[A,B,C,D,E,F,G,H,I]),
     listToNum([A,B,C], X),
     X < 360,
@@ -52,22 +52,22 @@ isSet([H|T])
 %all bearings should be different quadrents
 %integer divide (//) all bearings by 90 and check they are all different
 %check if ONE set of bearings is acceptable
-acceptable( A, B, C ) 
+acceptable( X, Y, Z ) 
 	%check none of the bearings are prime
 	:- 
-    \+ prime(A),
-	\+ prime(B),
-	\+ prime(C),
+    \+ prime(X),
+	\+ prime(Y),
+	\+ prime(Z),
     %check all the bearings are in different quadrents
-    A1 is A // 90,
-    B1 is B // 90,
-    C1 is C // 90,
-    isSet([A1, B1, C1]).
+    X1 is X // 90,
+    Y1 is Y // 90,
+    Z1 is Z // 90,
+    isSet([X1, Y1, Z1]).
 
 %given the question, I should be able 
-trait( A, B, C )
-  :- possible(A, B, C),
-  acceptable(A, B, C).
+trait( X, Y, Z ) 
+  :- possible( X, Y, Z ) ,
+  acceptable( X, Y, Z ) .
 
 %End Question 4.3
 

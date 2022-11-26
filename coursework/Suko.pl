@@ -31,14 +31,34 @@ possible(GRID)
 %End Question 3.2
 
 %Begin Question 3.3
+
+sumList([E], E).
+sumList([H|T], N)
+	:- sumList(T, N1),
+    N is N1 + H.
+
 % V = sum(VS)
 % U = sum(US)
 % W = sum(WS)
 %
-% T0 = 
+% sum(TS) = sum(4 * center + 2 * each edge center + 1 * each corner)
 %
-%acceptable( T0, T1, T2, T3, US, U, VS, V, WS, W, GRID)
-% :-
+acceptable( T0, T1, T2, T3, US, U, VS, V, WS, W, GRID)
+ :- sumList(US, U),
+    sumList(VS, V),
+    sumList(WS, W),
+    %check T0
+    indices([0,1,3,4], GRID, T0S),
+    sumList(T0S, T0),
+    %check T1
+    indices([1,2,4,5], GRID, T1S),
+    sumList(T1S, T1),
+    %check T2
+    indices([3,4,6,7], GRID, T2S),
+    sumList(T2S, T2),
+    %check T3
+    indices([4,5,7,8], GRID, T3S),
+    sumList(T3S, T3).
 
 %suko( T0, T1, T2, T3, US, U, VS, V, WS, W, GRID)
 %  :-
