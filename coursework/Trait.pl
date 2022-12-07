@@ -1,6 +1,6 @@
-%Begin Question 4.1
-%Fact: all numbers are divisible by themselves.
-%Rule: for any numbers N and N-1:
+% Begin Question 4.1
+% Fact: all numbers are divisible by themselves.
+% Rule: for any numbers N and N-1:
 %		N is prime iff is is not divisible by all numbers below it, except 1.
 primeCheck( N, N ).
 primeCheck( N, D )
@@ -9,7 +9,7 @@ primeCheck( N, D )
     D1 is D + 1,
     primeCheck(N, D1).
 
-%Rule: for any integer N:
+% Rule: for any integer N:
 %   if there are no factors (F) of N where 1 < F < N, it is prime.
 prime( N )
   :- primeCheck(N, 2).
@@ -17,6 +17,14 @@ prime( N )
 %End Question 4.1
 
 %Begin Question 4.2
+
+% This predicate returns successive permutations of GRID.
+% Grid is a list of any element type and X is the permutation.
+% Fact: the only permutation of an empty list is an empty list.
+% Fact: the only permutation of a singleton list is a singleton list.
+% Rule: for any list [H|T]:
+%       a permutation is L1 ++ H ++ L2
+%       where L1 and L2 are arbitrary separations of T.
 possiblePrint([], []).
 possiblePrint([X], [X]) :-!.
 possiblePrint(GRID, X) 
@@ -27,6 +35,9 @@ possiblePrint(GRID, X)
     append(L1, [H], X1),
     append(X1, L2, X).
 
+% Rule: a set of three bearings follow the constraints:
+%       - each is a three digit number collectively containing the digits 1..9
+%       - are each less than 360.
 possible( X, Y, Z )
 	:-
     possiblePrint(['1','6','8','2','7','9','3','4','5'], [A,B,C,D,E,F,G,H,I]),
@@ -41,15 +52,18 @@ possible( X, Y, Z )
 
 %Begin Question 4.3
 
+% Fact: an empty list is a valid set
+% Rule: any list [H|T] is a set if:
+%       H is not in T, and T is a set.
 isSet([]).
 isSet([H|T])
 	:- 
     \+ member(H, T),
     isSet(T).
 
-%all bearings should be different quadrents
-%integer divide (//) all bearings by 90 and check they are all different
-%check if ONE set of bearings is acceptable
+% All bearings should be different quadrents
+% Integer divide (//) all bearings by 90 and check they are all different
+% Check if ONE set of bearings is acceptable
 acceptable( X, Y, Z ) 
 	%check none of the bearings are prime
 	:- 
@@ -62,7 +76,6 @@ acceptable( X, Y, Z )
     Z1 is Z // 90,
     isSet([X1, Y1, Z1]).
 
-%given the question, I should be able 
 trait( X, Y, Z ) 
   :- possible( X, Y, Z ),
   acceptable( X, Y, Z ).
