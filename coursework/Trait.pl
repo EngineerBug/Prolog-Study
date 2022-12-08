@@ -1,4 +1,5 @@
 % Begin Question 4.1
+
 % Fact: all numbers are divisible by themselves.
 % Rule: for any numbers N and N-1:
 %		N is prime iff is is not divisible by all numbers below it, except 1.
@@ -66,7 +67,7 @@ isSet([H|T])
 % Check if ONE set of bearings is acceptable
 acceptable( X, Y, Z ) 
 	%check none of the bearings are prime
-	:- 
+	:-
     \+ prime(X),
 	\+ prime(Y),
 	\+ prime(Z),

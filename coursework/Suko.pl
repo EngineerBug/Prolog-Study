@@ -16,7 +16,8 @@ index(N, [_|T], E)
 indices( [], _, []).
 indices( _, [], []).
 indices( IS, XS, ES )
-  :- IS = [H|T],
+    :- 
+    IS = [H|T],
     index(H, XS, E),
     indices(T, XS, S),
     append([E], S, ES). 
@@ -35,7 +36,8 @@ indices( IS, XS, ES )
 possiblePrint([], []).
 possiblePrint([X], [X]) :-!.
 possiblePrint(GRID, X) 
-    :- GRID = [H|T],
+    :- 
+    GRID = [H|T],
     possiblePrint(T, T1),
     append(L1, L2, T1), 
     append(L1, [H], X1), 
@@ -54,7 +56,8 @@ possible( GRID )
 %       is H + the sum of T.
 sumList([E], E).
 sumList([H|T], N)
-	:- sumList(T, N1),
+	:- 
+    sumList(T, N1),
     N is N1 + H.
 
 % V = sum(VS)
@@ -65,7 +68,8 @@ sumList([H|T], N)
 % Bottom left corner add to T2
 % Bottom right corner add to T3
 acceptable( T0, T1, T2, T3, US, U, VS, V, WS, W, GRID)
- :- sumList(US, U),
+    :- 
+    sumList(US, U),
     sumList(VS, V),
     sumList(WS, W),
     %check T0
@@ -83,7 +87,8 @@ acceptable( T0, T1, T2, T3, US, U, VS, V, WS, W, GRID)
 
 % Find the permutation of 1..9 which satisfies the input.
 suko( T0, T1, T2, T3, US, U, VS, V, WS, W, GRID )
-  :- possible(GRID),
+    :- 
+    possible(GRID),
     acceptable( T0, T1, T2, T3, US, U, VS, V, WS, W, GRID ).
 
 %End Question 3.3
