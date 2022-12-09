@@ -37,17 +37,27 @@ possiblePrint(GRID, X)
     append(X1, L2, X).
 
 % Rule: a set of three bearings follow the constraints:
-%       - each is a three digit number collectively containing the digits 1..9
-%       - are each less than 360.
+%       - they cannot contain 0, or duplicate digits (hence using permutations of 1..9).
+%       - they cannot share digits with other bearings (hence using permutations of 1..9).
+%       - they should (for the reader's conveniance) be returned in ascending order.
+%
+% I was confused with this question, so I will explain my thinking.
+% My thinking here was to refine the search space as much as possible.
+% To this end, I worked out that 1,2,3 must be the hundreds digits and therefore the lowest tens + units digits was 45.
+% Therefore the range of the bearings were 144 < X < 200 and 244 < Y < 300 and 344 < Z < 360.
 possible( X, Y, Z )
 	:-
+    %these are in a funny order so that trait gives the final answer last.
     possiblePrint(['1','6','8','2','7','9','3','4','5'], [A,B,C,D,E,F,G,H,I]),
 	name(X, [A,B,C]),
-	X < 360,
+    X > 144,
+	X < 200,
 	name(Y, [D,E,F]),
-	Y < 360,
+    Y > 244,
+	Y < 300,
 	name(Z, [G,H,I]),
-	Z < 360.
+	Z > 344,
+    Z < 360.
 
 %End Question 4.2
 
@@ -77,14 +87,17 @@ acceptable( X, Y, Z )
     Z1 is Z // 90,
     isSet([X1, Y1, Z1]).
 
+%returns 8 answers, including the final answer!
 trait( X, Y, Z ) 
   :- possible( X, Y, Z ),
   acceptable( X, Y, Z ).
 
 %End Question 4.3
 
+%Final answer: 159, 267, 348
+
 %any main predicates for testing goes here
-main
+%main
 	%:- prime(19). %true
 	%:- prime(4). %false
 	%:- prime(11110). % false.
@@ -92,5 +105,5 @@ main
 	%:- isSet([1,2,3,4]). %true
 	%:- isSet([1,1,1,2]). %false
 	%:- acceptable(178, 249, 356). %true
-	:- trait(X, Y, Z).
+	%:- trait(X, Y, Z).
 	%:- possible(A, B, C), write(A), write(B), write(C).
